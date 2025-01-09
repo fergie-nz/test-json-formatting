@@ -3,8 +3,8 @@ name: Sort JSON on Pull Requests
 on:
   pull_request:
     paths:
-      # - "client/packages/common/src/intl/locales/**/*.json" # Trigger only for locale json changes
       - "**/*.json" # Trigger only for locale json changes
+      # - "client/packages/common/src/intl/locales/**/*.json" # Trigger only for locale json changes
 
 jobs:
   sort-json:
@@ -30,7 +30,7 @@ jobs:
 
       - name: Sort translation files
         run: |
-          TRANSLATION_FILES=($(find ./client/packages/common/src/intl/locales/ -type f -name "*.json"))
+          TRANSLATION_FILES=($(find ./files/ -type f -name "*.json"))
           for file in "${TRANSLATION_FILES[@]}"; do
             echo "Sorting $file..."
             jq --sort-keys . "$file" > "${file}.tmp" && mv "${file}.tmp" "$file"
