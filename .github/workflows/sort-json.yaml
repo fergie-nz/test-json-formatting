@@ -43,6 +43,7 @@ jobs:
 
       - name: Commit and push changes
         run: |
+          git checkout ${{ github.head_ref }}
           # Check for changes
           if [ "$(git status --porcelain)" ]; then
             echo "Changes detected, committing..."
