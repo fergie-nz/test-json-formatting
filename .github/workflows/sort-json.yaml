@@ -11,24 +11,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
+      - name: Setup cache for jq
+        uses: actions/cache@v3
+        with:
+          path: /usr/bin/jq
+          key: jq-cache
+
+      - name: Install jq if not cached
+        run: |
+          if ! command -v jq &> /dev/null; then
+            sudo apt-get update && sudo apt-get install -y jq
+          else
+            echo "jq is already installed, skipping installation."
+          fi
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Set up jq (JSON processor)
-      - name: Set up jq
-        run: sudo apt-get update && sudo apt-get install -y jq
-
-      # Step 3: Sort JSON files
-      - name: Sort JSON files
+      - name: Sort translation files
         run: |
-          # Find all changed JSON files in the PR
-          for file in $(git diff --name-only --diff-filter=d origin/main | grep '\.json$'); do
+          TRANSLATION_FILES=($(find ./client/packages/common/src/intl/locales/ -type f -name "*.json"))
+          for file in "${TRANSLATION_FILES[@]}"; do
             echo "Sorting $file..."
             jq --sort-keys . "$file" > "${file}.tmp" && mv "${file}.tmp" "$file"
           done
 
-      # Step 4: Commit and push changes if necessary
       - name: Commit and push changes
         run: |
           # Check for changes
