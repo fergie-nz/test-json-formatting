@@ -24,7 +24,7 @@ async function fetchComments() {
         });
 
         const completion = await openai.chat.completions.create({
-            model: "gpt-4o-mini",
+            model: "gpt-3.5-turbo",
             messages: [
                 { role: "system", content: "You are a helpful assistant." },
                 {
@@ -38,7 +38,6 @@ async function fetchComments() {
         // console.log(map_to_simplify(response.data));
         // console.log((response.data));
     } catch (error) {
-        console.log(error.status)
         if (error && error.status === 429) {
             console.log('finding status')
         //   const retryAfter = error.response.headers['retry-after'];
@@ -46,7 +45,7 @@ async function fetchComments() {
         //   await delay(retryAfter * 1000); // Convert to milliseconds
         //   return fetchComments();
         }
-        console.error('Error fetching comments:');
+        console.error('Error fetching comments:', error);
       }
 }
 
