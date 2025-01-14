@@ -20,8 +20,8 @@ async function fetchComments() {
             since,
             per_page: 1000,
         });
-        // console.log(map_to_simplify(response.data));
-        console.log((response.data));
+        console.log(map_to_simplify(response.data));
+        // console.log((response.data));
     } catch (error) {
         console.error('Error fetching comments:', error);
     }
