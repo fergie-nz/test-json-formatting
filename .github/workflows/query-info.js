@@ -1,4 +1,6 @@
-import {Octokit} from '@octokit/core'
+import {Octokit} from '@octokit/core';
+import OpenAI from "openai";
+const openai = new OpenAI();
 
 const octokit = new Octokit({
     auth: process.env.GITHUB_PAT, // Read from environment variable
@@ -20,7 +22,20 @@ async function fetchComments() {
             since,
             per_page: 1000,
         });
-        console.log(map_to_simplify(response.data));
+
+        const completion = await openai.chat.completions.create({
+            model: "gpt-4o-mini",
+            messages: [
+                { role: "system", content: "You are a helpful assistant." },
+                {
+                    role: "user",
+                    content: "Write a haiku about recursion in programming.",
+                },
+            ],
+        });
+        
+        console.log(completion.choices[0].message);
+        // console.log(map_to_simplify(response.data));
         // console.log((response.data));
     } catch (error) {
         console.error('Error fetching comments:', error);
@@ -32,7 +47,7 @@ fetchComments();
 const map_to_simplify = (comments) => {
     return comments.map(comment => ({
         user: comment.user.login,
-        time: comment.updated_at,
+        // time: comment.updated_at,
         comment: comment.body,
         // reactions: comment.reactions,
     }));
