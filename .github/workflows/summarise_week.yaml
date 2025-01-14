@@ -13,4 +13,4 @@ jobs:
       - name: Run script
         env:
           GITHUB_PAT: ${{ secrets.PAT }}
-        run: node your-script.js
+        run: node query-info.js
