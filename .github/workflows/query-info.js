@@ -38,8 +38,12 @@ async function fetchComments() {
         // console.log(map_to_simplify(response.data));
         // console.log((response.data));
     } catch (error) {
-        console.error('Error fetching comments:', error);
-    }
+        if (error.response && error.response.status === 429) {
+          const retryAfter = error.response.headers['retry-after'];
+          console.log(`Rate limit exceeded, retrying after ${retryAfter} seconds.`);
+          await delay(retryAfter * 1000); // Convert to milliseconds
+        }
+      }
 }
 
 fetchComments();
