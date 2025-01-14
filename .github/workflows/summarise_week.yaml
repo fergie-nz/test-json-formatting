@@ -16,4 +16,5 @@ jobs:
       - name: Run script
         env:
           GITHUB_PAT: ${{ secrets.PAT }}
+          OPENAI_API_KEY: ${{ secrets.CHAT_GPT }}
         run: node .github/workflows/query-info.js
