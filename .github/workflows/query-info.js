@@ -18,9 +18,10 @@ async function fetchComments() {
                 'X-GitHub-Api-Version': '2022-11-28',
             },
             since,
-            per_page: 1000,
+            per_page: 10,
         });
-        console.log(map_to_simplify(response.data));
+        // console.log(map_to_simplify(response.data));
+        console.log((response.data));
     } catch (error) {
         console.error('Error fetching comments:', error);
     }
