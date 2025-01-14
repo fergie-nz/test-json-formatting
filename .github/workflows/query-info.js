@@ -43,6 +43,7 @@ async function fetchComments() {
           console.log(`Rate limit exceeded, retrying after ${retryAfter} seconds.`);
           await delay(retryAfter * 1000); // Convert to milliseconds
         }
+        console.error('Error fetching comments:', error);
       }
 }
 
