@@ -20,11 +20,11 @@ async function fetchComments() {
                 'X-GitHub-Api-Version': '2022-11-28',
             },
             since,
-            per_page: 1000,
+            per_page: 10000,
         });
 
-        let comments = response.data.map(comment => comment).join('\n');
-
+        let comments = map_to_simplify(response.data);
+        
         const completion = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             messages: [
