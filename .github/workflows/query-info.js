@@ -23,8 +23,8 @@ async function fetchComments() {
             per_page: 10000,
         });
 
-        let comments = map_to_simplify(response.data);
-        
+        const comments = map_to_simplify(response.data);
+
         const completion = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             messages: [
