@@ -59,5 +59,5 @@ const map_to_simplify = (comments) => {
         time: comment.updated_at,
         comment: comment.body,
         reactions: comment.reactions,
-    }).join('\n'));
+    })).join('\n');
 }
