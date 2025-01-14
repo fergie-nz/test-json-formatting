@@ -28,7 +28,7 @@ async function fetchComments() {
         console.log('after response')
 
         const completion = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo",
+            model: "gpt-3.5-turbo-0125",
             messages: [
                 { role: "system", content: "You are a helpful assistant." },
                 {
