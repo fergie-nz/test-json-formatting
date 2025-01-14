@@ -34,6 +34,6 @@ const map_to_simplify = (comments) => {
         user: comment.user.login,
         time: comment.updated_at,
         comment: comment.body,
-        reactions: comment.reactions,
+        // reactions: comment.reactions,
     }));
 }
