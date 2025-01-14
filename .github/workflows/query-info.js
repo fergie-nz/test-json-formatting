@@ -12,11 +12,20 @@ async function fetchComments() {
             headers: {
                 'X-GitHub-Api-Version': '2022-11-28',
             },
+            per_page: 1000,
         });
-        console.log(response.data);
+        console.log(map_to_simplify(response.data));
     } catch (error) {
         console.error('Error fetching comments:', error);
     }
 }
 
 fetchComments();
+
+const map_to_simplify = (comments) => {
+    return comments.map(comment => ({
+        user: comment.user.login,
+        time: comment.updated_at,
+        comment: comment.body,
+    }));
+}
