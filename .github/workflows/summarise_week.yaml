@@ -1,0 +1,11 @@
+jobs:
+  example-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run script
+        env:
+          GITHUB_PAT: ${{ secrets.PAT }}
+        run: node your-script.js
