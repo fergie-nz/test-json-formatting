@@ -12,13 +12,14 @@ async function fetchComments() {
         const oneWeekAgo = new Date();
         oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
-        const oms_into_blurb = fs.ReadFile('intro.txt', 'utf8', (err, data) => {
-            if (err) {
-                console.error('Error reading file:', err);
-                return;
-            }
-            console.log('File content:', data);
-        });
+        // TODO remove comment
+        // const oms_into_blurb = fs.ReadFile('intro.txt', 'utf8', (err, data) => {
+        //     if (err) {
+        //         console.error('Error reading file:', err);
+        //         return;
+        //     }
+        //     console.log('File content:', data);
+        // });
         
 
         // Format the date in ISO 8601 format
