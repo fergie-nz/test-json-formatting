@@ -7,9 +7,7 @@ const octokit = new Octokit({
 });
 
 async function fetchComments() {
-    console.log('started js function')
     try {
-        console.log('trying to fetch')
         const oneWeekAgo = new Date();
         oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
@@ -25,7 +23,7 @@ async function fetchComments() {
             per_page: 1000,
         });
 
-        console.log('after response')
+        let comments = response.data.map(comment => comment).join('\n');
 
         const completion = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
@@ -33,7 +31,7 @@ async function fetchComments() {
                 { role: "system", content: "You are a helpful assistant." },
                 {
                     role: "user",
-                    content: "Write a haiku about recursion in programming.",
+                    content: `Here are some comments from GitHub issues:\n\n${comments}\n\nBased on these comments, please generate a post in markdown for social media.`,
                 },
             ],
         });
@@ -58,8 +56,8 @@ fetchComments();
 const map_to_simplify = (comments) => {
     return comments.map(comment => ({
         user: comment.user.login,
-        // time: comment.updated_at,
+        time: comment.updated_at,
         comment: comment.body,
-        // reactions: comment.reactions,
-    }));
+        reactions: comment.reactions,
+    }).join('\n'));
 }
