@@ -7,7 +7,9 @@ const octokit = new Octokit({
 });
 
 async function fetchComments() {
+    console.log('started js function')
     try {
+        console.log('trying to fetch')
         const oneWeekAgo = new Date();
         oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
@@ -22,6 +24,8 @@ async function fetchComments() {
             since,
             per_page: 1000,
         });
+
+        console.log('after response')
 
         const completion = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
