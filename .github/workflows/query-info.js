@@ -31,12 +31,14 @@ async function fetchComments() {
                 { role: "system", content: "You are a helpful assistant." },
                 {
                     role: "user",
-                    content: `Here are some comments from GitHub issues on TMF's msupply repo:\n\n${comments}\n\nBased on these comments, please generate a summary post of what we've been up to this week for socials. Do not worry about any preface like 'sure, here you go!'.`,
+                    content: `Here are some comments from GitHub issues on TMF's msupply repo:\n\n${comments}\n\nBased on these comments, please generate a summary post of what we've been up to this week for socials. Please be moderately specific in what issues were worked on. Approx 100-200 words is great. Do not worry about any preface like 'sure, here you go!'. Please generate this response in markdown format`,
                 },
             ],
         });
         
-        console.log(completion.choices[0].message);
+        console.log(completion.choices[0].message.content);
+
+        console.log(response.data);
         // console.log(map_to_simplify(response.data));
         // console.log((response.data));
     } catch (error) {
