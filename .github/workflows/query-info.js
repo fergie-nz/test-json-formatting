@@ -18,7 +18,7 @@ async function fetchComments() {
                 'X-GitHub-Api-Version': '2022-11-28',
             },
             since,
-            per_page: 10,
+            per_page: 1000,
         });
         // console.log(map_to_simplify(response.data));
         console.log((response.data));
@@ -34,5 +34,6 @@ const map_to_simplify = (comments) => {
         user: comment.user.login,
         time: comment.updated_at,
         comment: comment.body,
+        reactions: comment.reactions,
     }));
 }
