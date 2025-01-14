@@ -31,7 +31,7 @@ async function fetchComments() {
                 { role: "system", content: "You are a helpful assistant." },
                 {
                     role: "user",
-                    content: `Here are some comments from GitHub issues:\n\n${comments}\n\nBased on these comments, please generate a post in markdown for social media.`,
+                    content: `Here are some comments from GitHub issues on TMF's msupply repo:\n\n${comments}\n\nBased on these comments, please generate a summary post of what we've been up to this week for socials. Do not worry about any preface like 'sure, here you go!'.`,
                 },
             ],
         });
