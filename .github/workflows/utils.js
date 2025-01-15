@@ -21,6 +21,8 @@ export const waitForThumbsUpReaction = async ( messageId, generatedContent, TELE
     const timeout = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
     const startTime = Date.now();
 
+    console.log('waiting for message');
+
     while (!thumbsUpReceived) {
         const currentTime = Date.now();
 
@@ -44,8 +46,10 @@ export const waitForThumbsUpReaction = async ( messageId, generatedContent, TELE
 
             // Check if the message has reactions (thumbs-up emoji)
             if (message.chat.id === TELEGRAM_CHAT_ID && message.message_id === messageId) {
+                console.log('checking message: ', message)
                 if (message.reply_markup && message.reply_markup.inline_keyboard) {
                     const reactions = message.reply_markup.inline_keyboard;
+                    console.log('reaction: ', reactions);
                     // Check if there's a thumbs-up reaction
                     const thumbsUpReaction = reactions.some(button => button.text === '👍');
                     if (thumbsUpReaction) {
