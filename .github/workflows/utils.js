@@ -102,7 +102,7 @@ export const waitForThumbsUpReaction = async ( message, generatedContent, TELEGR
                 console.log('User approved, posting to social media...');
                 // Perform the action (post to social media, etc.)
                 // console.log('message', message.result.text);
-                const twitterResponse = await postTweet('test', twitterClient);
+                const twitterResponse = await postTweet(generatedContent, twitterClient);
                 sendConfirmation(`${CONFIRMATION_MESSAGE}${X_URL}${twitterResponse.id}`, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)
                 approved = true
                 return
