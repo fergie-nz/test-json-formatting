@@ -1,6 +1,6 @@
 import {Octokit} from '@octokit/core';
 import OpenAI from "openai";
-import { sendMessageToTelegram, waitForThumbsUpReaction, postTweet, filter_out_bots, map_to_simplify } from './utils';
+import { sendMessageToTelegram, waitForThumbsUpReaction, postTweet, filter_out_bots, map_to_simplify } from './utils.js';
 // import fs from 'fs';
 const openai = new OpenAI();
 
