@@ -23,7 +23,7 @@ const twitterClient = new TwitterApi({
 async function fetchComments() {
     try {
         const oneWeekAgo = new Date();
-        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+        oneWeekAgo.setDate(oneWeekAgo.getDate() - 30);
 
         const filePath = path.resolve(process.cwd(), '.github', 'workflows', 'intro.txt');
 
