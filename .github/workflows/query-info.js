@@ -1,6 +1,6 @@
 import {Octokit} from '@octokit/core';
 import OpenAI from "openai";
-import {axios} from 'axios';
+import axios from 'axios';
 // import fs from 'fs';
 const openai = new OpenAI();
 
