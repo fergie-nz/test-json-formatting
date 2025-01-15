@@ -25,7 +25,8 @@ async function fetchComments() {
         const oneWeekAgo = new Date();
         oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
-        const filePath = path.resolve(process.cwd(), 'intro.txt');
+        const filePath = path.resolve(process.cwd(), '.github', 'workflows', 'intro.txt');
+        console.log('path: ', filePath);
 
         const fileContent = fs.readFileSync(filePath, 'utf8');
         console.log('file content: ', fileContent);
