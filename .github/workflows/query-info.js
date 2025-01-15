@@ -69,7 +69,7 @@ async function fetchComments() {
         // fs.writeFileSync('./generated_post.md', generatedContent, 'utf8');
 
     } catch (error) {
-        console.error('Error fetching comments:', error);
+        console.error('Error:', error);
       }
 
 
