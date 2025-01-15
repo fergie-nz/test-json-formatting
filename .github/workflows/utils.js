@@ -82,7 +82,7 @@ export const postTweet = async (content) => {
     } catch (error) {
         console.error('Error posting tweet:', error);
     }
-};
+}
 
 
 export const filter_out_bots = (comments) => {
