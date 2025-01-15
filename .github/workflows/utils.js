@@ -112,8 +112,6 @@ export const waitForThumbsUpReaction = async ( message, generatedContent, TELEGR
 }
 
 export const postTweet = async (content, twitterClient) => {
-    const token = TWITTER_SECRET; // Replace with your Twitter Bearer Token
-
     try {
         const response = await twitterClient.v2.tweet(content);
         console.log('Tweet posted successfully:', response.data);
