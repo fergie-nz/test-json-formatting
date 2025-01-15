@@ -40,7 +40,7 @@ export const waitForThumbsUpReaction = async ( messageId, generatedContent, TELE
             },
         });
 
-        console.log('response: ', response.data);
+        console.log('response: ', response.data.result);
 
         const updates = response.data.result;
 
