@@ -88,7 +88,7 @@ export const waitForThumbsUpReaction = async ( message, generatedContent, TELEGR
                 console.log('User approved, posting to social media...');
                 // Perform the action (post to social media, etc.)
                 console.log('message', message.result.text);
-                await postTweet('test', TWITTER_SECRET)
+                await postTweet('test', twitterClient)
                 approved = true
                 return
               }
@@ -103,11 +103,12 @@ export const waitForThumbsUpReaction = async ( message, generatedContent, TELEGR
     }
 
     // Timeout or thumbs-up detected
-    if (thumbsUpReceived) {
-        postTweet(generatedContent, twitterClient)
+    if (approved) {
+        console.log('other approved checj?');
     } else {
-        console.log('Action canceled due to timeout.');
+        
     }
+    console.log('Action canceled due to timeout.');
 }
 
 export const postTweet = async (content, twitterClient) => {
