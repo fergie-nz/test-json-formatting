@@ -6,11 +6,17 @@ const TELEGRAM_URL = "https://api.telegram.org/bot"
 export const  sendMessageToTelegram = async (text, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID) => {
     const url = `${TELEGRAM_URL}${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
-    console.log('url', url, "id", TELEGRAM_CHAT_ID, 'text', text);
+    // console.log('url', url, "id", TELEGRAM_CHAT_ID, 'text', text);
+    // const response = await axios.post(url, {
+    //     chat_id: TELEGRAM_CHAT_ID,
+    //     text: text
+    // });
+    // return response.data;
+
     try {
-        const response = await axios.post(apiUrl, {
-          chat_id: chatId,
-          text: message.text,
+        const response = await axios.post(url, {
+          chat_id: TELEGRAM_CHAT_ID,
+          text: text,
           reply_markup: {
             inline_keyboard: [
               [
