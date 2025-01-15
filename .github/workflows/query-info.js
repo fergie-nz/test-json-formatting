@@ -61,7 +61,7 @@ async function fetchComments() {
                 { role: "system", content: "You are a helpful assistant." },
                 {
                     role: "user",
-                    content: `Here are some comments from GitHub issues on TMF's msupply repo:\n\n${comments}\n\n Also here are the issues they refer to:\n\n${issues_response.data}\n\nThese are both based on the previous weeks' work. Based on these, generate a very brief summary of less than 280 characters (as it is a tweet) of what the team has been up to this week. It would be helpful if you cut the chaff - and mention the specific things we've been working on. It is all open source so don't worry about sharing secrets or anything.`,
+                    content: `Here are some comments from GitHub issues on TMF's msupply repo:\n\n${comments}\n\n Also here are the issues they refer to:\n\n${issues_response.data}\n\nThese are both based on the previous weeks' work. Based on these, generate a very brief summary of strictly less than 280 characters (as it is a tweet) of what the team has been up to this week. It would be helpful if you cut the chaff - and mention the specific things we've been working on. It is all open source so don't worry about sharing secrets or anything. Also FYI everyone who was working on this works at TMF, so they're not community reported issues.`,
                 },
             ],
             });
