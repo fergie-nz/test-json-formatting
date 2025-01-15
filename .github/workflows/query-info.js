@@ -1,6 +1,7 @@
 import {Octokit} from '@octokit/core';
 import OpenAI from "openai";
-import fs from 'fs';
+import {axios} from 'axios';
+// import fs from 'fs';
 const openai = new OpenAI();
 
 const octokit = new Octokit({
@@ -61,10 +62,7 @@ async function fetchComments() {
 
         const generatedContent = 'test generated content'
 
-        sendMessageToTelegram(generatedContent)
-            .then(response => console.log('Message sent successfully:', response))
-            .catch(error => console.error('Error sending message:', error));
-
+        const message = await sendMessageToTelegram(generatedContent);
         await waitForThumbsUpReaction(message.result.message_id, generatedContent);
 
 
