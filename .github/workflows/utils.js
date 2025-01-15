@@ -105,7 +105,7 @@ export const waitForThumbsUpReaction = async ( message, generatedContent, TELEGR
                 let trimmedTweet = generatedContent.slice(0, 280);
                 const twitterResponse = await postTweet(trimmedTweet, twitterClient);
                 console.log('twitter response: ', twitterResponse);
-                sendConfirmation(`${CONFIRMATION_MESSAGE}${X_URL}${twitterResponse.id}`, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)
+                sendConfirmation(`${CONFIRMATION_MESSAGE}${X_URL}${twitterResponse.data.id}`, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)
                 approved = true
                 return
               }
