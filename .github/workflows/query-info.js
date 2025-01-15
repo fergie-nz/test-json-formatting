@@ -45,6 +45,7 @@ async function fetchComments() {
         const comments = map_to_simplify(commentsWithoutBots);
 
         // TODO remove comment
+        try {
         const completion = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             messages: [
@@ -55,6 +56,9 @@ async function fetchComments() {
                 },
             ],
         });
+    } catch (errror) {
+        console.log(error);
+    }
 
         const generatedContent = completion.data.choices[0].message.content;
 
