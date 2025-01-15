@@ -65,9 +65,9 @@ async function fetchComments() {
                 },
             ],
             });
-            console.log(
-                'completion', completion
-            );
+            // console.log(
+            //     'completion', completion
+            // );
 
             const generatedContent = completion.choices[0].message.content;
             

@@ -3,7 +3,7 @@ import { TwitterApi } from 'twitter-api-v2';
 const TELEGRAM_URL = "https://api.telegram.org/bot"
 const CONFIRMATION_MESSAGE = "Done! Posted to twitter here: ";
 const X_URL = "https://x.com/fergie_91291/status/";
-const FAIL_MESSAGE = "WON'T post this update! <3";
+const FAIL_MESSAGE = "WON'T post this update! ❤️";
 
 
 export const  sendMessageToTelegram = async (text, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID) => {
@@ -87,7 +87,7 @@ export const waitForThumbsUpReaction = async ( message, generatedContent, TELEGR
             },
         });
 
-        console.log('response: ', response.data.result);
+        // console.log('response: ', response.data.result);
 
         const updates = response.data.result;
 
@@ -101,7 +101,7 @@ export const waitForThumbsUpReaction = async ( message, generatedContent, TELEGR
               if (userMessage === 'approve' && userMessageTime > initialSentTime && update.message.chat.id == TELEGRAM_CHAT_ID) {
                 console.log('User approved, posting to social media...');
                 // Perform the action (post to social media, etc.)
-                console.log('message', message.result.text);
+                // console.log('message', message.result.text);
                 const twitterResponse = await postTweet('test', twitterClient);
                 sendConfirmation(`${CONFIRMATION_MESSAGE}${X_URL}${twitterResponse.id}`, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)
                 approved = true
