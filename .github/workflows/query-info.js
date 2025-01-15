@@ -8,7 +8,6 @@ const octokit = new Octokit({
     auth: process.env.GITHUB_PAT, // Read from environment variable
 });
 
-const TELEGRAM_URL = "https://api.telegram.org/bot"
 
 async function fetchComments() {
     try {
