@@ -61,7 +61,7 @@ async function fetchComments() {
                 { role: "system", content: "You are a helpful assistant." },
                 {
                     role: "user",
-                    content: `Here are some comments from GitHub issues on TMF's msupply repo:\n\n${comments}\n\n Also here are the issues they refer to:\n\n${issues_response.data}\n\nThese are both based on the previous weeks' work. Based on these comments and issues, please generate a summary post of what we've been up to this week for socials. Please be moderately specific in what issues were worked on, but also use your judgement on what would be best for socials. Approx 100-200 words is great. Do not worry about any preface like 'sure, here you go!'. Please generate this response in markdown format. Some more context you might find helpful is: Basically everyone working on this is part of the TMF org. Also, could you make this post slightly more layperson accessible? Also using standardised hashtags would be awesome - some flexibility but maybe always use a :rocket and #TMF. Also here is the intro to OMS blurb which could also be helpful context: ${intro_blurb}. Most importantly! This is a tweet- it can be a max of 280 characters. Maybe don't use emojis at all`,
+                    content: `Here are some comments from GitHub issues on TMF's msupply repo:\n\n${comments}\n\n Also here are the issues they refer to:\n\n${issues_response.data}\n\nThese are both based on the previous weeks' work. Based on these, generate a very brief summary of less than 280 characters (as it is a tweet) of what the team has been up to this week`,
                 },
             ],
             });
