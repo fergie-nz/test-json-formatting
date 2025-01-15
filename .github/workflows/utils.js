@@ -83,7 +83,8 @@ export const waitForThumbsUpReaction = async ( messageId, generatedContent, TELE
                 console.log('checking message: ', message)
                 if (update.message && update.message.text) {
                     const userMessage = update.message.text.toLowerCase(); // Convert message to lowercase for case-insensitive comparison
-            
+                    
+                    console.log('user message: ', userMessage);
                     // Check if the reply is 'approve'
                     if (userMessage === 'approve') {
                       console.log('User approved, posting to social media...');
