@@ -1,8 +1,9 @@
 import {Octokit} from '@octokit/core';
 import OpenAI from "openai";
 import { sendMessageToTelegram, waitForThumbsUpReaction, postTweet, filter_out_bots, map_to_simplify } from './utils.js';
-// import fs from 'fs';
+import fs from 'fs';
 import { TwitterApi } from 'twitter-api-v2';
+
 
 const openai = new OpenAI();
 
@@ -25,7 +26,8 @@ async function fetchComments() {
 
         const test = "fdasdsad fasfas";
 
-        const intro_blurb = "intro";
+        const fileContent = fs.readFileSync('./intro.txt', 'utf8');
+        console.log('file content: ', fileContent);
 
         // Format the date in ISO 8601 format
         const since = oneWeekAgo.toISOString();
