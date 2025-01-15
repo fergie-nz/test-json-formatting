@@ -7,11 +7,25 @@ export const  sendMessageToTelegram = async (text, TELEGRAM_BOT_TOKEN, TELEGRAM_
     const url = `${TELEGRAM_URL}${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
     console.log('url', url, "id", TELEGRAM_CHAT_ID, 'text', text);
-    const response = await axios.post(url, {
-        chat_id: TELEGRAM_CHAT_ID,
-        text: text
-    });
-    return response.data;
+    try {
+        const response = await axios.post(apiUrl, {
+          chat_id: chatId,
+          text: message.text,
+          reply_markup: {
+            inline_keyboard: [
+              [
+                {
+                  text: '👍',
+                  callback_data: 'thumb_up', // Your reaction data
+                },
+              ],
+            ],
+          },
+        });
+        return response.data;
+      } catch (error) {
+        console.error('Error sending message with buttons:', error);
+    }
 }
 
 export const waitForThumbsUpReaction = async ( messageId, generatedContent, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, TWITTER_SECRET) => {
