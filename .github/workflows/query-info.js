@@ -59,7 +59,7 @@ async function fetchComments() {
             console.log(
                 'completion', completion
             );
-            const generatedContent = completion.data.choices[0].message.content;
+            const generatedContent = completion.choices[0].message.content;
             console.log('generated content', generatedContent);
 
             // const generatedContent = 'test generated content'
