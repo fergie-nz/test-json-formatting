@@ -21,30 +21,30 @@ async function fetchComments() {
         
 
         // Format the date in ISO 8601 format
-        const since = oneWeekAgo.toISOString();
-        const comments_response = await octokit.request('GET /repos/msupply-foundation/open-msupply/issues/comments', {
-            owner: 'OWNER',
-            repo: 'REPO',
-            headers: {
-                'X-GitHub-Api-Version': '2022-11-28',
-            },
-            since,
-            per_page: 10000,
-        });
+        // const since = oneWeekAgo.toISOString();
+        // const comments_response = await octokit.request('GET /repos/msupply-foundation/open-msupply/issues/comments', {
+        //     owner: 'OWNER',
+        //     repo: 'REPO',
+        //     headers: {
+        //         'X-GitHub-Api-Version': '2022-11-28',
+        //     },
+        //     since,
+        //     per_page: 10000,
+        // });
 
-        const issues_response = await octokit.request('GET /repos/msupply-foundation/open-msupply/issues', {
-            owner: 'OWNER',
-            repo: 'REPO',
-            headers: {
-                'X-GitHub-Api-Version': '2022-11-28',
-            },
-            since,
-            per_page: 10000,
-        });
+        // const issues_response = await octokit.request('GET /repos/msupply-foundation/open-msupply/issues', {
+        //     owner: 'OWNER',
+        //     repo: 'REPO',
+        //     headers: {
+        //         'X-GitHub-Api-Version': '2022-11-28',
+        //     },
+        //     since,
+        //     per_page: 10000,
+        // });
 
-        const commentsWithoutBots = filter_out_bots(comments_response.data);
+        // const commentsWithoutBots = filter_out_bots(comments_response.data);
 
-        const comments = map_to_simplify(commentsWithoutBots);
+        // const comments = map_to_simplify(commentsWithoutBots);
 
         // TODO remove comment
         // const completion = await openai.chat.completions.create({
