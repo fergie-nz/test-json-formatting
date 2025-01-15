@@ -64,7 +64,7 @@ async function fetchComments() {
             const message = await sendMessageToTelegram(generatedContent, process.env.TELEGRAM_BOT_TOKEN, process.env.TELEGRAM_CHAT_ID);
             await waitForThumbsUpReaction(message, generatedContent, process.env.TELEGRAM_BOT_TOKEN, process.env.TELEGRAM_CHAT_ID, process.env.TWITTER_SECRET);
 
-        } catch (errror) {
+        } catch (error) {
             console.log(error);
         }
 
