@@ -87,7 +87,7 @@ export const waitForThumbsUpReaction = async ( message, generatedContent, TELEGR
               if (userMessage === 'approve' && userMessageTime > initialSentTime) {
                 console.log('User approved, posting to social media...');
                 // Perform the action (post to social media, etc.)
-                console.log('message', message);
+                console.log('message', message.result.text);
                 // await postTweet()
                 return
               }
