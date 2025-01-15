@@ -63,7 +63,7 @@ async function fetchComments() {
                 { role: "system", content: "You are a helpful assistant." },
                 {
                     role: "user",
-                    content: `Context: Here's an intro to the omSupply repo:\n\n${fileContent}\n\nThese are some key comments from GitHub issues and related tasks this week:\n\n${comments}\n\nIssues involved:\n\n${issues_response.data}\n\nPlease generate a tweet of strictly less than 280 characters summarizing the most significant work this release (8 weeks incl 2 week downtime). Focus on one key point, such as a feature released, a bug fixed, or a milestone reached. Cut out unnecessary details and make it crisp. The tweet should be clear, concise, and suitable for social media. Everyone working on this is part of TMF, and it's all open-source work.`
+                    content: `Context: Here's an intro to the omSupply repo:\n\n${fileContent}\n\nThese are some key comments from GitHub issues and related tasks this week:\n\n${comments}\n\nIssues involved:\n\n${issues_response.data}\n\nPlease generate a tweet of strictly less than 280 characters summarizing the most significant work this release (8 weeks incl 2 week downtime). Don't mention exact time frames, as release cycle lengths may change. You can mention release. Focus on one key point, such as a feature released, a bug fixed, or a milestone reached. Cut out unnecessary details and make it crisp. The tweet should be clear, concise, and suitable for social media. Everyone working on this is part of TMF, and it's all open-source work.`
                 },
             ],
             });
