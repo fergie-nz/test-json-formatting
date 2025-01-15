@@ -46,7 +46,7 @@ async function fetchComments() {
 
         // TODO remove comment
         try {
-        const completion = await openai.chat.completions.create({
+            const completion = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             messages: [
                 { role: "system", content: "You are a helpful assistant." },
@@ -55,25 +55,24 @@ async function fetchComments() {
                     content: `Here are some comments from GitHub issues on TMF's msupply repo:\n\n${comments}\n\n Also here are the issues they refer to:\n\n${issues_response.data}\n\nThese are both based on the previous weeks' work. Based on these comments and issues, please generate a summary post of what we've been up to this week for socials. Please be moderately specific in what issues were worked on, but also use your judgement on what would be best for socials. Approx 100-200 words is great. Do not worry about any preface like 'sure, here you go!'. Please generate this response in markdown format. Some more context you might find helpful is: Basically everyone working on this is part of the TMF org. Also, could you make this post slightly more layperson accessible? Also using standardised hashtags would be awesome - some flexibility but maybe always use a :rocket and #TMF. Also here is the intro to OMS blurb which could also be helpful context: ${intro_blurb}`,
                 },
             ],
-        });
-    } catch (errror) {
-        console.log(error);
-    }
+            });
+            const generatedContent = completion.data.choices[0].message.content;
+            console.log('generated content', generatedContent);
 
-        const generatedContent = completion.data.choices[0].message.content;
+            // const generatedContent = 'test generated content'
 
-        // const generatedContent = 'test generated content'
+            const message = await sendMessageToTelegram(generatedContent, process.env.TELEGRAM_BOT_TOKEN, process.env.TELEGRAM_CHAT_ID);
+            await waitForThumbsUpReaction(message, generatedContent, process.env.TELEGRAM_BOT_TOKEN, process.env.TELEGRAM_CHAT_ID, process.env.TWITTER_SECRET);
 
-        const message = await sendMessageToTelegram(generatedContent, process.env.TELEGRAM_BOT_TOKEN, process.env.TELEGRAM_CHAT_ID);
-        await waitForThumbsUpReaction(message, generatedContent, process.env.TELEGRAM_BOT_TOKEN, process.env.TELEGRAM_CHAT_ID, process.env.TWITTER_SECRET);
+        } catch (errror) {
+            console.log(error);
+        }
 
-
-
-        // fs.writeFileSync('./generated_post.md', generatedContent, 'utf8');
+    // fs.writeFileSync('./generated_post.md', generatedContent, 'utf8');
 
     } catch (error) {
         console.error('Error:', error);
-      }
+    }
 
 
 }
