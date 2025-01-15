@@ -81,14 +81,13 @@ export const waitForThumbsUpReaction = async ( messageId, generatedContent, TELE
             // Check if the message has reactions (thumbs-up emoji)
             if (message.chat.id === TELEGRAM_CHAT_ID && message.message_id === messageId) {
                 console.log('checking message: ', message)
-                if (message.reply_markup && message.reply_markup.inline_keyboard) {
-                    const reactions = message.reply_markup.inline_keyboard;
-                    console.log('reaction: ', reactions);
-                    // Check if there's a thumbs-up reaction
-                    const thumbsUpReaction = reactions.some(button => button.text === '👍');
-                    if (thumbsUpReaction) {
-                        thumbsUpReceived = true;
-                        console.log('Thumbs-up received, proceeding with the action...');
+                if (update.message && update.message.text) {
+                    const userMessage = update.message.text.toLowerCase(); // Convert message to lowercase for case-insensitive comparison
+            
+                    // Check if the reply is 'approve'
+                    if (userMessage === 'approve') {
+                      console.log('User approved, posting to social media...');
+                      // Perform the action (post to social media, etc.)
                     }
                 }
             }
