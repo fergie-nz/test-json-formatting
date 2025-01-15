@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { TwitterApi } from 'twitter-api-v2';
 const TELEGRAM_URL = "https://api.telegram.org/bot"
+const CONFIRMATION_MESSAGE = "Done! Posted to twitter here: ";
+const X_URL = "https://x.com/fergie_91291/status/";
+const FAIL_MESSAGE = "WON'T post this update! <3";
 
 
 export const  sendMessageToTelegram = async (text, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID) => {
@@ -32,6 +35,17 @@ export const  sendMessageToTelegram = async (text, TELEGRAM_BOT_TOKEN, TELEGRAM_
     //   } catch (error) {
     //     console.error('Error sending message with buttons:', error);
     // }
+}
+
+export const sendConfirmation = async (text, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID) => {
+    const url = `${TELEGRAM_URL}${TELEGRAM_BOT_TOKEN}/sendMessage`;
+
+    // console.log('url', url, "id", TELEGRAM_CHAT_ID, 'text', text);
+    const response = await axios.post(url, {
+        chat_id: TELEGRAM_CHAT_ID,
+        text: text
+    });
+    return response.data;
 }
 
 // const handleTelegramUpdate = async (update) => {
@@ -88,7 +102,8 @@ export const waitForThumbsUpReaction = async ( message, generatedContent, TELEGR
                 console.log('User approved, posting to social media...');
                 // Perform the action (post to social media, etc.)
                 console.log('message', message.result.text);
-                await postTweet('test', twitterClient)
+                const twitterResponse = await postTweet('test', twitterClient);
+                sendConfirmation(`${CONFIRMATION_MESSAGE}${X_URL}${twitterResponse.id}`, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)
                 approved = true
                 return
               }
@@ -101,20 +116,14 @@ export const waitForThumbsUpReaction = async ( message, generatedContent, TELEGR
             await new Promise(resolve => setTimeout(resolve, 5000));
         }
     }
-
-    // Timeout or thumbs-up detected
-    if (approved) {
-        console.log('other approved checj?');
-    } else {
-        
-    }
-    console.log('Action canceled due to timeout.');
+    sendConfirmation(`${FAIL_MESSAGE}`, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)
 }
 
 export const postTweet = async (content, twitterClient) => {
     try {
         const response = await twitterClient.v2.tweet(content);
         console.log('Tweet posted successfully:', response.data);
+        return response;
     } catch (error) {
         console.error('Error posting tweet:', error);
     }
