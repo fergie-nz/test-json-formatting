@@ -39,6 +39,8 @@ export const waitForThumbsUpReaction = async ( messageId, generatedContent, TELE
             },
         });
 
+        console.log('response: ', response);
+
         const updates = response.data.result;
 
         if (updates.length > 0) {
