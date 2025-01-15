@@ -61,8 +61,8 @@ async function fetchComments() {
 
         const generatedContent = 'test generated content'
 
-        const message = await sendMessageToTelegram(generatedContent);
-        await waitForThumbsUpReaction(message.result.message_id, generatedContent);
+        const message = await sendMessageToTelegram(generatedContent, process.env.TELEGRAM_BOT_TOKEN, process.env.TELEGRAM_CHAT_ID);
+        await waitForThumbsUpReaction(message.result.message_id, generatedContent, process.env.TELEGRAM_BOT_TOKEN, process.env.TELEGRAM_CHAT_ID, process.env.TWITTER_SECRET);
 
 
 

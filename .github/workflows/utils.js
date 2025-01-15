@@ -3,17 +3,17 @@ import axios from 'axios';
 const TELEGRAM_URL = "https://api.telegram.org/bot"
 
 
-export const  sendMessageToTelegram = async (text) => {
-    const url = `${TELEGRAM_URL}/${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`;
+export const  sendMessageToTelegram = async (text, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID) => {
+    const url = `${TELEGRAM_URL}/${TELEGRAM_BOT_TOKEN}/sendMessage`;
     const response = await axios.post(url, {
-        chat_id: process.env.TELEGRAM_CHAT_ID,
+        chat_id: TELEGRAM_CHAT_ID,
         text: text
     });
     return response.data;
 }
 
-export const waitForThumbsUpReaction = async ( messageId, generatedContent) => {
-    const url = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/getUpdates`;
+export const waitForThumbsUpReaction = async ( messageId, generatedContent, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, TWITTER_SECRET) => {
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates`;
     
     let thumbsUpReceived = false;
     const timeout = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
@@ -41,7 +41,7 @@ export const waitForThumbsUpReaction = async ( messageId, generatedContent) => {
             const message = updates[0].message;
 
             // Check if the message has reactions (thumbs-up emoji)
-            if (message.chat.id === process.env.TELEGRAM_CHAT_ID && message.message_id === messageId) {
+            if (message.chat.id === TELEGRAM_CHAT_ID && message.message_id === messageId) {
                 if (message.reply_markup && message.reply_markup.inline_keyboard) {
                     const reactions = message.reply_markup.inline_keyboard;
                     // Check if there's a thumbs-up reaction
@@ -62,14 +62,14 @@ export const waitForThumbsUpReaction = async ( messageId, generatedContent) => {
 
     // Timeout or thumbs-up detected
     if (thumbsUpReceived) {
-        postTweet(generatedContent)
+        postTweet(generatedContent, TWITTER_SECRET)
     } else {
         console.log('Action canceled due to timeout.');
     }
 }
 
-export const postTweet = async (content) => {
-    const token = process.env.TWITTER_SECRET; // Replace with your Twitter Bearer Token
+export const postTweet = async (content, TWITTER_SECRET) => {
+    const token = TWITTER_SECRET; // Replace with your Twitter Bearer Token
 
     try {
         const response = await axios.post(
