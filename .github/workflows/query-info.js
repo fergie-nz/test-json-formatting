@@ -26,10 +26,8 @@ async function fetchComments() {
         oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
         const filePath = path.resolve(process.cwd(), '.github', 'workflows', 'intro.txt');
-        console.log('path: ', filePath);
 
         const fileContent = fs.readFileSync(filePath, 'utf8');
-        console.log('file content: ', fileContent);
 
         // Format the date in ISO 8601 format
         const since = oneWeekAgo.toISOString();
@@ -65,7 +63,7 @@ async function fetchComments() {
                 { role: "system", content: "You are a helpful assistant." },
                 {
                     role: "user",
-                    content: `Here are some comments from GitHub issues on TMF's msupply repo:\n\n${comments}\n\n Also here are the issues they refer to:\n\n${issues_response.data}\n\nThese are both based on the previous weeks' work. Based on these, generate a very brief summary of strictly less than 280 characters (as it is a tweet) of what the team has been up to this week. It would be helpful if you cut the chaff - and mention the specific things we've been working on. It is all open source so don't worry about sharing secrets or anything. Also FYI everyone who was working on this works at TMF, so they're not community reported issues.`,
+                    content: `Context: Here's an intro to the omSupply repo:\n\n${fileContent}\n\nThese are some key comments from GitHub issues and related tasks this week:\n\n${comments}\n\nIssues involved:\n\n${issues_response.data}\n\nPlease generate a tweet of strictly less than 280 characters summarizing the most significant work this week. Focus on one key point, such as a feature released, a bug fixed, or a milestone reached. Cut out unnecessary details and make it crisp. The tweet should be clear, concise, and suitable for social media. Everyone working on this is part of TMF, and it's all open-source work.`
                 },
             ],
             });
