@@ -17,16 +17,19 @@ jobs:
         env:
           GITHUB_PAT: ${{ secrets.PAT }}
           OPENAI_API_KEY: ${{ secrets.CHAT_GPT }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TWITTER_SECRET: ${{ secrets.TWITTER_SECRET }}
         run: node .github/workflows/query-info.js
 
-      - name: Read Generated Post
-        id: read_post
-        run: |
-          POST_CONTENT=$(cat ./generated_post.md)
-          echo "POST_CONTENT=${POST_CONTENT}" >> $GITHUB_ENV
+      # - name: Read Generated Post
+      #   id: read_post
+      #   run: |
+      #     POST_CONTENT=$(cat ./generated_post.md)
+      #     echo "POST_CONTENT=${POST_CONTENT}" >> $GITHUB_ENV
 
-      - name: Send Post to Telegram for Review
-        run: |
-          curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
-            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-            -d text="New social media post for review: `${{ env.POST_CONTENT }}`"
+      # - name: Send Post to Telegram for Review
+      #   run: |
+      #     curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+      #       -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+      #       -d text="New social media post for review: ${{ env.POST_CONTENT }}"
