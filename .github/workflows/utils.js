@@ -7,32 +7,43 @@ export const  sendMessageToTelegram = async (text, TELEGRAM_BOT_TOKEN, TELEGRAM_
     const url = `${TELEGRAM_URL}${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
     // console.log('url', url, "id", TELEGRAM_CHAT_ID, 'text', text);
-    // const response = await axios.post(url, {
-    //     chat_id: TELEGRAM_CHAT_ID,
-    //     text: text
-    // });
-    // return response.data;
+    const response = await axios.post(url, {
+        chat_id: TELEGRAM_CHAT_ID,
+        text: text
+    });
+    return response.data;
 
-    try {
-        const response = await axios.post(url, {
-          chat_id: TELEGRAM_CHAT_ID,
-          text: text,
-          reply_markup: {
-            inline_keyboard: [
-              [
-                {
-                  text: '👍',
-                  callback_data: 'thumb_up', // Your reaction data
-                },
-              ],
-            ],
-          },
-        });
-        return response.data;
-      } catch (error) {
-        console.error('Error sending message with buttons:', error);
-    }
+    // try {
+    //     const response = await axios.post(url, {
+    //       chat_id: TELEGRAM_CHAT_ID,
+    //       text: text,
+    //       reply_markup: {
+    //         inline_keyboard: [
+    //           [
+    //             {
+    //               text: '👍',
+    //               callback_data: 'thumb_up', // Your reaction data
+    //             },
+    //           ],
+    //         ],
+    //       },
+    //     });
+    //     return response.data;
+    //   } catch (error) {
+    //     console.error('Error sending message with buttons:', error);
+    // }
 }
+
+// const handleTelegramUpdate = async (update) => {
+//     if (update.callback_query) {
+//       // This is a reaction or callback (e.g., thumbs up)
+//       const userId = update.callback_query.from.id; // Get the user ID of the person reacting
+//       const reactionData = update.callback_query.data; // 'thumb_up' or other data
+  
+//       console.log(`User ${userId} reacted with: ${reactionData}`);
+//       // Perform your desired action based on the reaction, e.g., proceed with posting to social media
+//     }
+// };
 
 export const waitForThumbsUpReaction = async ( messageId, generatedContent, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, TWITTER_SECRET) => {
     const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates`;
