@@ -4,6 +4,7 @@ import { sendMessageToTelegram, waitForThumbsUpReaction, postTweet, filter_out_b
 import fs from 'fs';
 import path from 'path';
 import { TwitterApi } from 'twitter-api-v2';
+// add comment for final test
 
 
 const openai = new OpenAI();
