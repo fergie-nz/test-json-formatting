@@ -48,7 +48,7 @@ export const  sendMessageToTelegram = async (text, TELEGRAM_BOT_TOKEN, TELEGRAM_
 export const waitForThumbsUpReaction = async ( message, generatedContent, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, TWITTER_SECRET) => {
     const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates`;
     
-    let thumbsUpReceived = false;
+    let approved = false;
     // const timeout = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
     const timeout = 60 * 1000; // 30 seconds in milliseconds
     const startTime = Date.now();
@@ -57,7 +57,7 @@ export const waitForThumbsUpReaction = async ( message, generatedContent, TELEGR
 
     console.log('waiting for message');
 
-    while (!thumbsUpReceived) {
+    while (!approved) {
         const currentTime = Date.now();
 
         // Check if timeout has passed
@@ -84,18 +84,19 @@ export const waitForThumbsUpReaction = async ( message, generatedContent, TELEGR
 
               console.log('user message: ', userMessage)
               // Check if the reply is 'approve'
-              if (userMessage === 'approve' && userMessageTime > initialSentTime) {
+              if (userMessage === 'approve' && userMessageTime > initialSentTime && update.message.chat.id == TELEGRAM_CHAT_ID) {
                 console.log('User approved, posting to social media...');
                 // Perform the action (post to social media, etc.)
                 console.log('message', message.result.text);
-                // await postTweet()
+                await postTweet('test', TWITTER_SECRET)
+                approved = true
                 return
               }
             }
         }
       
 
-        if (!thumbsUpReceived) {
+        if (!approved) {
             // Wait for a few seconds before polling again
             await new Promise(resolve => setTimeout(resolve, 5000));
         }
