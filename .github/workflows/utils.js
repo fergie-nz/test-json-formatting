@@ -18,7 +18,8 @@ export const waitForThumbsUpReaction = async ( messageId, generatedContent, TELE
     const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates`;
     
     let thumbsUpReceived = false;
-    const timeout = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+    // const timeout = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+    const timeout = 60 * 1000; // 30 seconds in milliseconds
     const startTime = Date.now();
 
     console.log('waiting for message');
