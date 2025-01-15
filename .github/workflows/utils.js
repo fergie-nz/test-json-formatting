@@ -45,13 +45,15 @@ export const  sendMessageToTelegram = async (text, TELEGRAM_BOT_TOKEN, TELEGRAM_
 //     }
 // };
 
-export const waitForThumbsUpReaction = async ( messageId, generatedContent, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, TWITTER_SECRET) => {
+export const waitForThumbsUpReaction = async ( message, generatedContent, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, TWITTER_SECRET) => {
     const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates`;
     
     let thumbsUpReceived = false;
     // const timeout = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
     const timeout = 60 * 1000; // 30 seconds in milliseconds
     const startTime = Date.now();
+
+    const initialSentTime = message.result.date;
 
     console.log('waiting for message');
 
@@ -75,24 +77,20 @@ export const waitForThumbsUpReaction = async ( messageId, generatedContent, TELE
 
         const updates = response.data.result;
 
-        if (updates.length > 0) {
-            const message = updates[0].message;
+        for (const update of updates) {
+            if (update.message && update.message.text) {
+              const userMessage = update.message.text.toLowerCase(); // Convert message to lowercase for case-insensitive comparison
+              const userMessageTime = update.message.date; 
 
-            // Check if the message has reactions (thumbs-up emoji)
-            if (message.chat.id === TELEGRAM_CHAT_ID && message.message_id === messageId) {
-                console.log('checking message: ', message)
-                if (update.message && update.message.text) {
-                    const userMessage = update.message.text.toLowerCase(); // Convert message to lowercase for case-insensitive comparison
-                    
-                    console.log('user message: ', userMessage);
-                    // Check if the reply is 'approve'
-                    if (userMessage === 'approve') {
-                      console.log('User approved, posting to social media...');
-                      // Perform the action (post to social media, etc.)
-                    }
-                }
+              console.log('user message: ', userMessage)
+              // Check if the reply is 'approve'
+              if (userMessage === 'approve' && userMessageTime > initialSentTime) {
+                console.log('User approved, posting to social media...');
+                // Perform the action (post to social media, etc.)
+              }
             }
         }
+      
 
         if (!thumbsUpReceived) {
             // Wait for a few seconds before polling again
