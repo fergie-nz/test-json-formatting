@@ -19,7 +19,7 @@ const twitterClient = new TwitterApi({
     accessSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 });
 
-
+// testing final test
 async function fetchComments() {
     try {
         const oneWeekAgo = new Date();
