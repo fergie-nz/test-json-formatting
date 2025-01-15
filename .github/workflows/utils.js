@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import TwitterApi from 'twitter-api-v2'
 const TELEGRAM_URL = "https://api.telegram.org/bot"
 
 
@@ -45,7 +45,7 @@ export const  sendMessageToTelegram = async (text, TELEGRAM_BOT_TOKEN, TELEGRAM_
 //     }
 // };
 
-export const waitForThumbsUpReaction = async ( message, generatedContent, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, TWITTER_SECRET) => {
+export const waitForThumbsUpReaction = async ( message, generatedContent, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, twitterClient) => {
     const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates`;
     
     let approved = false;
@@ -104,25 +104,17 @@ export const waitForThumbsUpReaction = async ( message, generatedContent, TELEGR
 
     // Timeout or thumbs-up detected
     if (thumbsUpReceived) {
-        postTweet(generatedContent, TWITTER_SECRET)
+        postTweet(generatedContent, twitterClient)
     } else {
         console.log('Action canceled due to timeout.');
     }
 }
 
-export const postTweet = async (content, TWITTER_SECRET) => {
+export const postTweet = async (content, twitterClient) => {
     const token = TWITTER_SECRET; // Replace with your Twitter Bearer Token
 
     try {
-        const response = await axios.post(
-            'https://api.twitter.com/2/tweets',
-            { status: content },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
-        );
+        const response = await twitterClient.v2.tweet(content);
         console.log('Tweet posted successfully:', response.data);
     } catch (error) {
         console.error('Error posting tweet:', error);

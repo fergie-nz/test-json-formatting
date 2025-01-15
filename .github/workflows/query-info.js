@@ -2,10 +2,19 @@ import {Octokit} from '@octokit/core';
 import OpenAI from "openai";
 import { sendMessageToTelegram, waitForThumbsUpReaction, postTweet, filter_out_bots, map_to_simplify } from './utils.js';
 // import fs from 'fs';
+import TwitterApi from 'twitter-api-v2'
+
 const openai = new OpenAI();
 
 const octokit = new Octokit({
     auth: process.env.GITHUB_PAT, // Read from environment variable
+});
+
+const twitterClient = new TwitterApi({
+    appKey : process.env.TWITTER_API_KEY,
+    appSecret: process.env.TWITTER_API_KEY_SECRET,
+    accessToken: process.env.TWITTER_ACCESS_TOKEN,
+    accessSecret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 });
 
 
@@ -65,7 +74,7 @@ async function fetchComments() {
             // const generatedContent = 'test generated content'
 
             const message = await sendMessageToTelegram(generatedContent, process.env.TELEGRAM_BOT_TOKEN, process.env.TELEGRAM_CHAT_ID);
-            await waitForThumbsUpReaction(message, generatedContent, process.env.TELEGRAM_BOT_TOKEN, process.env.TELEGRAM_CHAT_ID, process.env.TWITTER_SECRET);
+            await waitForThumbsUpReaction(message, generatedContent, process.env.TELEGRAM_BOT_TOKEN, process.env.TELEGRAM_CHAT_ID, twitterClient);
 
         } catch (error) {
             console.log(error);
